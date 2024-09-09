@@ -1,0 +1,39 @@
+%% refresh
+clear;
+close all;
+clc;
+
+rng(0);
+%% add path for including some tool functions
+addpath('func');
+
+% g = modify_and_save_g_sim(".\data\test_sim.mat");
+% fig4a.graph_file = './data/test_sim.mat';
+
+% u = source_position_generation_new();
+u = source_position_generation();
+% measurement = TDOA_generation();
+
+% measurement = load("9.3measurement.mat");
+% outlier = finderror(measurement.measurement);
+% g = modify_and_save_g_real(".\data\9.3test_real.mat", u, measurement.measurement, outlier);
+% fig4a.graph_file = './data/9.3test_real.mat';
+
+
+measurement = load("measurement01_100_new.mat");
+outlier = finderror(measurement.measurement);
+g = modify_and_save_g_real(".\data\9.3test_real.mat", u, measurement.measurement, outlier);
+fig4a.graph_file = './data/9.3test_real.mat';
+%% params
+
+% Fig.4(a)
+fig4a.eps = 1e-2;
+fig4a.fig.title = 'Fig.4(a)';
+fig4a.fig.view_a = 30; fig4a.fig.view_e = 15;
+disp('随机初始值');
+calib_func(fig4a);
+
+disp('闭式解赋初值');
+closed_form_calib_func(fig4a);
+pause(0.5);
+
